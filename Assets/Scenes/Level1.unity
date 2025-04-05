@@ -367,7 +367,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
+  m_Sprite: {fileID: 795988872, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -388,8 +388,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.37, y: -2.32, z: 0}
-  m_LocalScale: {x: 0.35476, y: 0.35476, z: 0.35476}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -407,6 +407,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   spinSpeed: 10
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  chargeTime: 3
+  chargeSprites:
+  - {fileID: 795988872, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
+  - {fileID: -173765565, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
+  - {fileID: 315397453, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
+  - {fileID: -163440400, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
+  - {fileID: -59977137, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
+  - {fileID: 949265977, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
+  - {fileID: -1258098294, guid: da4b6c6a484af4319a1cf20a748814d4, type: 3}
 --- !u!60 &696331062
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -443,7 +454,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8828125, y: 1}
+    oldSize: {x: 6.4399996, y: 5.1599994}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
