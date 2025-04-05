@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent agent;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();        
         agent.updateRotation = false;
@@ -17,8 +17,11 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        agent.SetDestination(target.position);
+        if (target != null)
+        {
+            agent.SetDestination(target.position);
+        }
     }
 }
