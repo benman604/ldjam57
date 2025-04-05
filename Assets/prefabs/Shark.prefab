@@ -285,7 +285,7 @@ MonoBehaviour:
   player: {fileID: 0}
   chompCooldown: 0.1
   distToChomp: 3
-  chompDelay: 0.2
+  chompDelay: 0.1
   chompDamage: 25
   chomper: {fileID: 2696651154547873069}
   leftChompPoint: {fileID: 6080239213222996325}

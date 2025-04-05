@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeedWhenChargingMultiplier = 0.15f;
     public float spinSpeed = 10f;
 
+    public float drag = 3f;
+
     public float chargeTime = 3f; // Time required to fully charge the attack
     public Sprite[] chargeSprites; // Assign the 7 sprites in the Inspector (index 0 to 6)
 
@@ -19,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
     private bool isCharging = false;
     private bool isFullyCharged = false; // Track if the player is fully charged
+    private int spinDir = 1;
+    private float defaultAngularDrag; 
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();   
         cameraTransform = Camera.main.transform;
         spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
+        defaultAngularDrag = rb.angularDrag; 
     }
 
     // Update is called once per frame
@@ -51,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (rb.velocity.magnitude > 0) {
-            rb.angularVelocity = -spinSpeed * (isCharging ? moveSpeedWhenChargingMultiplier : 1f);
+            rb.angularVelocity = -spinDir * spinSpeed * (isCharging ? moveSpeedWhenChargingMultiplier : 1f);
         }
 
         // Handle charging and shooting
@@ -74,6 +79,25 @@ public class PlayerMovement : MonoBehaviour
             } else {
                 spriteRenderer.sprite = chargeSprites[0];
             }
+        }
+
+        // Spin left on Q and right on E
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            spinDir = -1;
+        }
+        else if (Input.GetKeyDown(KeyCode.E)) {
+            spinDir = 1;
+        }
+
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)) {
+            rb.angularVelocity += -spinDir * spinSpeed * Time.deltaTime; 
+        }
+
+        // Increase angular drag on Shift
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+            rb.angularDrag = drag;
+        } else {
+            rb.angularDrag = defaultAngularDrag; 
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float health = 100f; // Health of the enemy
+    public float distToSmell = 10f; 
     public PlayerMovement player;
     NavMeshAgent agent;
 
@@ -20,7 +21,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        if (player != null)
+        if (player != null && Vector3.Distance(transform.position, player.gameObject.transform.position) <= distToSmell)
         {
             agent.SetDestination(player.gameObject.transform.position);
         }
