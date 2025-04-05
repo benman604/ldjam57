@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float health = 100f;
     public float moveSpeed = 5f; 
     public float moveSpeedWhenChargingMultiplier = 0.15f;
     public float spinSpeed = 10f;
@@ -36,25 +37,22 @@ public class PlayerMovement : MonoBehaviour
             cameraTransform.position.z
         ); 
 
-        // Prevent movement while charging
-        // if (!isCharging)
-        // {
-            float moveX = Input.GetAxis("Horizontal");
-            float moveY = Input.GetAxis("Vertical");
 
-            if (moveX == 0 && moveY == 0)
-            {
-                rb.velocity = Vector2.zero;
-            }
-            else
-            {
-                rb.velocity = new Vector2(moveX, moveY) * moveSpeed * (isCharging ? moveSpeedWhenChargingMultiplier : 1f); 
-            }
-        // }
-        // else
-        // {
-            // rb.velocity = Vector2.zero; // Stop movement while charging
-        // }
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
+
+        if (moveX == 0 && moveY == 0)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveX, moveY) * moveSpeed * (isCharging ? moveSpeedWhenChargingMultiplier : 1f); 
+        }
+
+        if (rb.velocity.magnitude > 0) {
+            rb.angularVelocity = -spinSpeed * (isCharging ? moveSpeedWhenChargingMultiplier : 1f);
+        }
 
         // Handle charging and shooting
         if (Input.GetKeyDown(KeyCode.Space) && !isCharging)
@@ -90,10 +88,9 @@ public class PlayerMovement : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            // Change sprite every fractional second relative to chargeTime/3
             if (elapsedTime >= (spriteIndex + 1) * (chargeTime / 3f) && spriteIndex < 3) {
                 spriteIndex++;
-                spriteRenderer.sprite = chargeSprites[spriteIndex * 2]; // Use sprites 1, 3, 5, 7
+                spriteRenderer.sprite = chargeSprites[spriteIndex * 2];
             }
 
             yield return null;
@@ -102,31 +99,19 @@ public class PlayerMovement : MonoBehaviour
         // Shooting phase
         if (elapsedTime >= chargeTime)
         {
-            spriteRenderer.sprite = chargeSprites[6]; // Fully charged sprite (sprite7)
-            // Shoot();
-            isFullyCharged = true; // Mark as fully charged
-            // yield return new WaitForSeconds(0.5f); // Keep the fully charged sprite for 0.5 seconds
+            spriteRenderer.sprite = chargeSprites[6]; 
+            isFullyCharged = true; 
         }
-
-        // Reset sprite to normal after shooting
-        // spriteRenderer.sprite = chargeSprites[0];
-
-        // isCharging = false;
     }
 
-    // private void Shoot()
-    // {
-    //     if (projectilePrefab != null && firePoint != null)
-    //     {
-    //         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-    //         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-    //         if (projectileRb != null)
-    //         {
-    //             projectileRb.velocity = firePoint.right * fireSpeed;
-    //         }
-    //         else {
-    //             Debug.LogWarning("Projectile Rigidbody2D component not found.");
-    //         }
-    //     }
-    // }
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            health = 0;
+            // Handle player death here (e.g., restart the level, show game over screen, etc.)
+            Debug.Log("Player has died.");
+        }
+    }
 }

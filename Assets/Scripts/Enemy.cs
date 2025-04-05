@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform target;
+    public float health = 100f; // Health of the enemy
+    public PlayerMovement player;
     NavMeshAgent agent;
 
     // Start is called before the first frame update
@@ -19,9 +20,18 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        if (target != null)
+        if (player != null)
         {
-            agent.SetDestination(target.position);
+            agent.SetDestination(player.gameObject.transform.position);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Debug.Log($"{gameObject.name} has been destroyed.");
         }
     }
 }
