@@ -15,21 +15,18 @@ public class Gun : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Fire()
     {
         if (projectilePrefab != null && firePoint != null)
         {
-            Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D projectileRb = projectilePrefab.GetComponent<Rigidbody2D>();
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
             if (projectileRb != null)
             {
                 projectileRb.velocity = firePoint.right * bulletSpeed;
+            }
+            else {
+                Debug.LogWarning("Projectile Rigidbody2D component not found.");
             }
         }
     }
