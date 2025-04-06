@@ -403,6 +403,7 @@ MonoBehaviour:
   - {fileID: 1131111022}
   - {fileID: 548811201}
   gunsDamage: 10
+  healthText: {fileID: 0}
 --- !u!60 &696331062
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -4181,6 +4182,7 @@ MonoBehaviour:
   health: 100
   distToSmell: 10
   player: {fileID: 0}
+  isDead: 0
 --- !u!195 &1980958861
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4280,6 +4282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2063221784}
   - component: {fileID: 2063221783}
+  - component: {fileID: 2063221785}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -4316,6 +4319,19 @@ Transform:
   - {fileID: 736293686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2063221785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063221782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842f31b3eb2dcd340bf7865021e0f459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundSprite: {fileID: 21300000, guid: 953d8d72e4dd50e4ab64b757a41723fb, type: 3}
 --- !u!1001 &1008231671010633893
 PrefabInstance:
   m_ObjectHideFlags: 0
