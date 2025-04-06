@@ -541,6 +541,8 @@ MonoBehaviour:
   moveSpeed: 5
   moveSpeedWhenChargingMultiplier: 0.15
   spinSpeed: 500
+  gunPrefab: {fileID: 0}
+  gunPositions: []
   drag: 3
   chargeTime: 0.7
   chargeSprites:
@@ -12406,6 +12408,46 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea48702876a334f03a663854c2906ed5, type: 3}
+--- !u!1 &1054705958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6439376113671963815, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
+  m_PrefabInstance: {fileID: 7561491959415118103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1054705965
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054705958}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.5
 --- !u!4 &1131111021 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2532361970326733790, guid: ea48702876a334f03a663854c2906ed5, type: 3}
@@ -12900,15 +12942,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5832950425568888617, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5832950425568888617, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5832950425568888617, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5832950425568888617, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12929,7 +12971,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6439376113671963815, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1054705965}
   m_SourcePrefab: {fileID: 100100000, guid: d1d0edad855094335b4a9af8d60930e5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

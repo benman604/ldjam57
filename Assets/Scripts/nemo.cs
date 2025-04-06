@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // For scene transitions
 using UnityEngine.AI;
 
 public class Nemo : Enemy
@@ -79,6 +80,15 @@ public class Nemo : Enemy
         else if (velocity.x < 0) // Moving left
         {
             spriteRenderer.flipX = false; // Reset the sprite to default orientation
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Transition to the win page
+            SceneManager.LoadScene("WinScene"); // Replace "WinScene" with the name of your win scene
         }
     }
 }
