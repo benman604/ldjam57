@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeedWhenChargingMultiplier = 0.15f;
     public float spinSpeed = 10f;
 
+    public Gun gunPrefab;
+    public Transform[] gunPositions;
+    int gunIndex = 0; 
+
+
     public float drag = 3f;
 
     public float chargeTime = 3f; // Time required to fully charge the attack
@@ -129,6 +134,22 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.sprite = chargeSprites[6]; 
             isFullyCharged = true; 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("collectable_gun"))
+        {
+            Destroy(collision.gameObject);
+            if (guns.Length > gunIndex) {
+                Gun newGun = Instantiate(gunPrefab, gunPositions[gunIndex].position, gunPositions[gunIndex].rotation);
+                newGun.transform.SetParent(transform); 
+                guns[gunIndex] = newGun; 
+                gunIndex++;
+            } else {
+                Debug.Log("No more gun positions available.");
+            }
         }
     }
 
