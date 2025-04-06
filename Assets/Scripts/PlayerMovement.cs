@@ -144,4 +144,9 @@ public class PlayerMovement : MonoBehaviour
 
         healthText.SetText(health.ToString("F0")); // Update the health text display
     }
+
+    public void Die() {
+        Debug.Log("Player has died.");
+        Destroy(gameObject);
+    }
 }
