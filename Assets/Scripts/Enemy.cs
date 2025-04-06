@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public float distToSmell = 10f; 
     public PlayerMovement player;
     public bool isDead = false;
-    NavMeshAgent agent;
+    protected NavMeshAgent agent;
 
     // Start is called before the first frame update
     protected void Start()
