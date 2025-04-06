@@ -46,11 +46,6 @@ public class Shark : Enemy
         // Rotate the shark to face the movement direction
         RotateToFaceMovement(navMeshAgent.velocity);
 
-        if (!isBloody && health < 50f) {
-            isBloody = true;
-            animator.Play("Swim Bloody");
-        }
-
         float dist = Vector3.Distance(transform.position, player.transform.position);
         if (dist <= distToChomp && Time.time - lastChompTime >= chompCooldown)
         {
@@ -97,20 +92,32 @@ public class Shark : Enemy
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Handle player collision if needed
-            // For example, apply damage or effects
+    // private void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("Player"))
+    //     {
+    //         // Handle player collision if needed
+    //         // For example, apply damage or effects
+    //     }
+
+    //     if (collision.gameObject.CompareTag("Projectile"))
+    //     {
+    //         StartCoroutine(blinker.blinkFor(0.5f));
+    //     }
+    // }
+
+    public override void TakeDamage(float damage) {
+        if (isDead) {
+            return; // Don't do anything if already dead
         }
 
-        if (collision.gameObject.CompareTag("Projectile"))
-        {
-            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
-            TakeDamage(projectile.damage);
-            Destroy(projectile.gameObject);
-            StartCoroutine(blinker.blinkFor(0.5f));
+        base.TakeDamage(damage); 
+
+        StartCoroutine(blinker.blinkFor(1f));
+
+        if (health < 50 && !isBloody) {
+            isBloody = true;
+            animator.Play("Swim Bloody");
         }
     }
 }
