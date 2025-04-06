@@ -8,7 +8,6 @@ public class Shark : Enemy
 {
     public float chompCooldown = 1f;
     public float distToChomp = 3f;
-    public float chompDelay = 0.2f;
     public float chompDamage = 25f;
     public CircleCollider2D chomper;
 
@@ -62,20 +61,9 @@ public class Shark : Enemy
             animator.Play("Chomp");
         }
 
-        chompRenderer.enabled = true;
-        StartCoroutine(PostChomp());
-    }
-
-    private IEnumerator PostChomp()
-    {
-        // if player is colliding with the chomper trigger, apply damage
-        if (chomper.IsTouching(player.gameObject.GetComponent<Collider2D>()))
-        {
+        if (chomper.IsTouching(player.gameObject.GetComponent<Collider2D>())) {
             player.TakeDamage(chompDamage);
         }
-
-        yield return new WaitForSeconds(chompDelay);
-        chompRenderer.enabled = false;
     }
 
     private void RotateToFaceMovement(Vector3 velocity)

@@ -33,12 +33,15 @@ public class PlayerMovement : MonoBehaviour
     private int spinDir = 1;
     private float defaultAngularDrag; 
 
+    Blinker blinker;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();   
         cameraTransform = Camera.main.transform;
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        blinker = gameObject.AddComponent<Blinker>();
         defaultAngularDrag = rb.angularDrag; 
     }
 
@@ -155,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        StartCoroutine(blinker.blinkFor(0.5f));
         health -= damage;
         if (health <= 0)
         {

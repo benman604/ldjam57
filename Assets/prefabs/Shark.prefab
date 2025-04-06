@@ -71,7 +71,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6408201383069162384}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -287,7 +287,6 @@ MonoBehaviour:
   isDead: 0
   chompCooldown: 0.1
   distToChomp: 3
-  chompDelay: 0.05
   chompDamage: 25
   chomper: {fileID: 2696651154547873069}
   leftChompPoint: {fileID: 6080239213222996325}
