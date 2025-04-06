@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public float health = 100f; // Health of the enemy
     public float distToSmell = 10f; 
     public PlayerMovement player;
+    public bool isDead = false;
     NavMeshAgent agent;
 
     // Start is called before the first frame update
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        if (player != null && Vector3.Distance(transform.position, player.gameObject.transform.position) <= distToSmell)
+        if (!isDead && Vector3.Distance(transform.position, player.gameObject.transform.position) <= distToSmell)
         {
             agent.SetDestination(player.gameObject.transform.position);
         }
@@ -32,7 +33,17 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Debug.Log($"{gameObject.name} has been destroyed.");
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        Debug.Log($"{gameObject.name} has died.");
+
+        Animator animator = GetComponent<Animator>();
+        animator.Play("shark_dead");
+        isDead = true;
+        Destroy(gameObject, 2f); 
     }
 }

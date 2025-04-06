@@ -17,13 +17,16 @@ public class Gun : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void Fire()
+    public void Fire(float damage)
     {
         animator.Play("gun_fire");
         if (projectilePrefab != null && firePoint != null)
         {
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+
+            projectileScript.damage = damage;
             if (projectileRb != null)
             {
                 projectileRb.velocity = firePoint.right * bulletSpeed;

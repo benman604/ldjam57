@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class Shark : Enemy
     Animator animator;
     SpriteRenderer spriteRenderer;
     SpriteRenderer chompRenderer;
+    Blinker blinker;
     float lastChompTime = -Mathf.Infinity;
     bool isBloody = false;
     bool isMoving = false;
@@ -27,6 +29,7 @@ public class Shark : Enemy
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         chompRenderer = chomper.gameObject.GetComponent<SpriteRenderer>();
+        blinker = gameObject.AddComponent<Blinker>(); 
 
         chomper.isTrigger = true; 
         chompRenderer.enabled = false; 
@@ -65,7 +68,7 @@ public class Shark : Enemy
         }
 
         chompRenderer.enabled = true;
-        StartCoroutine(PostChomp()); // Disable the chomper after a short delay
+        StartCoroutine(PostChomp());
     }
 
     private IEnumerator PostChomp()
@@ -107,6 +110,7 @@ public class Shark : Enemy
             Projectile projectile = collision.gameObject.GetComponent<Projectile>();
             TakeDamage(projectile.damage);
             Destroy(projectile.gameObject);
+            StartCoroutine(blinker.blinkFor(0.5f));
         }
     }
 }

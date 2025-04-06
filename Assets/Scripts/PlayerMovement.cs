@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public Sprite[] chargeSprites; // Assign the 7 sprites in the Inspector (index 0 to 6)
 
     public Gun[] guns;
+    public float gunsDamage = 50f;
+
+    public TextMeshProUGUI healthText;
 
     private Rigidbody2D rb;
     private Transform cameraTransform;
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
             if (isFullyCharged) {
                 foreach (var gun in guns) {
                     if (gun != null) {
-                        gun.Fire();
+                        gun.Fire(gunsDamage); 
                     }
                 }
                 isFullyCharged = false;
@@ -137,5 +141,7 @@ public class PlayerMovement : MonoBehaviour
             // Handle player death here (e.g., restart the level, show game over screen, etc.)
             Debug.Log("Player has died.");
         }
+
+        healthText.SetText(health.ToString("F0")); // Update the health text display
     }
 }
