@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+
     public float health = 100f;
     public float moveSpeed = 5f; 
     public float moveSpeedWhenChargingMultiplier = 0.15f;
@@ -163,11 +166,18 @@ public class PlayerMovement : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
-            // Handle player death here (e.g., restart the level, show game over screen, etc.)
             Debug.Log("Player has died.");
+            SceneManager.LoadScene("LossScene");
         }
 
-        healthText.SetText(health.ToString("F0")); // Update the health text display
+        if (healthText != null)
+        {
+            healthText.SetText(health.ToString("F0")); // Update the health text display
+        }
+        else
+        {
+            Debug.LogWarning("healthText is not assigned in the Inspector.");
+        }
     }
 
     public void Die() {
