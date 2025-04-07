@@ -43,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
     private int spinDir = 1;
     private float defaultAngularDrag; 
 
+    
+    private float lastGunPickupTime = -Mathf.Infinity; // Tracks the last time a gun was picked up
+    private const float gunPickupCooldown = 3f; // Cooldown duration in seconds
+
+
     Blinker blinker;
 
     // Start is called before the first frame update
@@ -74,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+        // Update is called once per frame
     void Update()
     {
         cameraTransform.position = new Vector3(
@@ -82,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
             transform.position.y, 
             cameraTransform.position.z
         ); 
-
 
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
@@ -94,6 +98,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(moveX, moveY) * moveSpeed * (isCharging ? moveSpeedWhenChargingMultiplier : 1f); 
+        }
+
+        // Clamp the player's position to prevent going below -55 on the x-axis
+        if (transform.position.x < -55f)
+        {
+            transform.position = new Vector3(-55f, transform.position.y, transform.position.z);
         }
 
         if (rb.velocity.magnitude > 0) {
@@ -173,6 +183,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("collectable_gun"))
         {
+            // Check if the cooldown has passed
+            if (Time.time - lastGunPickupTime < gunPickupCooldown)
+            {
+                Debug.Log("Gun pickup is on cooldown.");
+                return;
+            }
+
             Destroy(collision.gameObject);
 
             // Ensure the guns array is properly initialized
@@ -191,6 +208,9 @@ public class PlayerMovement : MonoBehaviour
 
                 // Increment gunIndex
                 gunIndex++;
+
+                // Update the last gun pickup time
+                lastGunPickupTime = Time.time;
             }
             else
             {

@@ -55,7 +55,7 @@ public class Shark : Enemy
 
     void Chomp() {
         if (health < 0) return;
-        if (health < 50) {
+        if (health < 51) {
             animator.Play("Chomp Bloody");
         } else {
             animator.Play("Chomp");
@@ -110,7 +110,7 @@ public class Shark : Enemy
             isDead = true; // Mark the shark as dead
             Die(); // Trigger death logic
         }
-        else if (health < 50 && !isBloody)
+        else if (health < 51 && !isBloody)
         {
             isBloody = true;
             animator.Play("Swim Bloody"); // Play bloody swim animation
