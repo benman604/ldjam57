@@ -285,6 +285,8 @@ MonoBehaviour:
   distToSmell: 10
   player: {fileID: 0}
   isDead: 0
+  hurtSound: {fileID: 8300000, guid: 1a8177f848ed746ba8edff87b0a69d55, type: 3}
+  chompSound: {fileID: 8300000, guid: 7fc89214c20204f45a6b98318fd0c2d5, type: 3}
   chompCooldown: 0.1
   distToChomp: 3
   chompDamage: 25

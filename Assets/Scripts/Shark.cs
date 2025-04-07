@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class Shark : Enemy
 {
+    public AudioClip hurtSound;
+    public AudioClip chompSound;
+    private AudioSource audioSource;
+
     public float chompCooldown = 1f;
     public float distToChomp = 3f;
     public float chompDamage = 25f;
@@ -32,6 +36,7 @@ public class Shark : Enemy
 
         chomper.isTrigger = true; 
         chompRenderer.enabled = false; 
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public new void Update()
@@ -55,6 +60,8 @@ public class Shark : Enemy
 
     void Chomp() {
         if (health < 0) return;
+
+
         if (health < 51) {
             animator.Play("Chomp Bloody");
         } else {
@@ -110,6 +117,7 @@ public class Shark : Enemy
         }
 
         base.TakeDamage(damage); // Reduce health by the damage amount
+        audioSource.PlayOneShot(hurtSound);
 
         StartCoroutine(blinker.blinkFor(1f)); // Visual feedback for taking damage
 

@@ -8,7 +8,11 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    // public AudioClip backgroundSound;
+    public AudioClip hurtSound;
+    public AudioClip pickupSound;
+    public AudioClip fireSound;
+    private AudioSource audioSource;
 
     public float health = 100f;
     public float moveSpeed = 5f; 
@@ -58,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>(); 
         blinker = gameObject.AddComponent<Blinker>();
         defaultAngularDrag = rb.angularDrag; 
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -125,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
                         gun.Fire(gunsDamage); 
                     }
                 }
+                audioSource.PlayOneShot(fireSound); 
                 isFullyCharged = false;
                 spriteRenderer.sprite = chargeSprites[0];
             } else {
@@ -191,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             Destroy(collision.gameObject);
+            audioSource.PlayOneShot(pickupSound); // Play pickup sound
 
             // Ensure the guns array is properly initialized
             if (guns == null || guns.Length == 0)
@@ -223,6 +230,7 @@ public class PlayerMovement : MonoBehaviour
     {
         StartCoroutine(blinker.blinkFor(0.5f));
         health -= damage;
+        audioSource.PlayOneShot(hurtSound);
         if (health <= 0)
         {
             health = 0;
