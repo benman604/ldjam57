@@ -94,18 +94,32 @@ public class Shark : Enemy
     //     }
     // }
 
-    public override void TakeDamage(float damage) {
-        if (isDead) {
+    public override void TakeDamage(float damage)
+    {
+        if (isDead)
+        {
             return; // Don't do anything if already dead
         }
 
-        base.TakeDamage(damage); 
+        base.TakeDamage(damage); // Reduce health by the damage amount
 
-        StartCoroutine(blinker.blinkFor(1f));
+        StartCoroutine(blinker.blinkFor(1f)); // Visual feedback for taking damage
 
-        if (health < 50 && !isBloody) {
-            isBloody = true;
-            animator.Play("Swim Bloody");
+        if (health <= 0)
+        {
+            isDead = true; // Mark the shark as dead
+            Die(); // Trigger death logic
         }
+        else if (health < 50 && !isBloody)
+        {
+            isBloody = true;
+            animator.Play("Swim Bloody"); // Play bloody swim animation
+        }
+    }
+
+
+    private void Die()
+    {
+        Destroy(gameObject, 0.1f); // Destroy the shark after 1 second to allow the animation to play
     }
 }

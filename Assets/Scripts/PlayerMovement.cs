@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        int fullHearts = Mathf.FloorToInt(health / 25f); // Calculate the number of full hearts
+        int fullHearts = Mathf.CeilToInt(health / 25f); // Calculate the number of full hearts
 
         for (int i = 0; i < heartImages.Length; i++)
         {
@@ -174,12 +174,26 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("collectable_gun"))
         {
             Destroy(collision.gameObject);
-            if (gunIndex < guns.Length) { // Ensure gunIndex is within bounds
+
+            // Ensure the guns array is properly initialized
+            if (guns == null || guns.Length == 0)
+            {
+                Debug.LogError("Guns array is not initialized or has a length of 0.");
+                return;
+            }
+
+            if (gunIndex < guns.Length) // Ensure gunIndex is within bounds
+            {
+                // Instantiate the new gun and assign it to the correct position
                 Gun newGun = Instantiate(gunPrefab, gunPositions[gunIndex].position, gunPositions[gunIndex].rotation);
-                newGun.transform.SetParent(transform); 
-                guns[gunIndex] = newGun; 
+                newGun.transform.SetParent(transform);
+                guns[gunIndex] = newGun;
+
+                // Increment gunIndex
                 gunIndex++;
-            } else {
+            }
+            else
+            {
                 Debug.Log("No more gun positions available.");
             }
         }
