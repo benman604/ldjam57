@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f; 
     public float moveSpeedWhenChargingMultiplier = 0.15f;
     public float spinSpeed = 10f;
+
+    
+    public Image[] heartImages; // Assign the 4 heart images in the Inspector
+    public Sprite fullHeartSprite; // Assign the full heart sprite in the Inspector
+    public Sprite emptyHeartSprite; // Assign the empty heart sprite in the Inspector
 
     public Gun gunPrefab;
     public Transform[] gunPositions;
@@ -46,6 +53,25 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>(); 
         blinker = gameObject.AddComponent<Blinker>();
         defaultAngularDrag = rb.angularDrag; 
+    }
+
+
+
+    private void UpdateHealthBar()
+    {
+        int fullHearts = Mathf.FloorToInt(health / 25f); // Calculate the number of full hearts
+
+        for (int i = 0; i < heartImages.Length; i++)
+        {
+            if (i < fullHearts)
+            {
+                heartImages[i].sprite = fullHeartSprite; // Set to full heart
+            }
+            else
+            {
+                heartImages[i].sprite = emptyHeartSprite; // Set to empty heart
+            }
+        }
     }
 
     // Update is called once per frame
@@ -169,6 +195,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player has died.");
             SceneManager.LoadScene("LossScene");
         }
+
+        UpdateHealthBar(); // Update the health bar
 
         if (healthText != null)
         {
