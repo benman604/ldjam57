@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip hurtSound;
     public AudioClip pickupSound;
     public AudioClip fireSound;
+    public AudioClip chargeSound;
     private AudioSource audioSource;
+    private AudioSource audioSource2;
 
     public float health = 100f;
     public float moveSpeed = 5f; 
@@ -63,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         blinker = gameObject.AddComponent<Blinker>();
         defaultAngularDrag = rb.angularDrag; 
         audioSource = GetComponent<AudioSource>();
+        audioSource2 = gameObject.AddComponent<AudioSource>(); 
+        audioSource2.playOnAwake = false;
     }
 
 
@@ -119,10 +123,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isCharging)
         {
             StartCoroutine(ChargeAndShoot());
+            audioSource2.PlayOneShot(chargeSound);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            audioSource2.Stop();
             isCharging = false;
             if (isFullyCharged) {
                 foreach (var gun in guns) {
