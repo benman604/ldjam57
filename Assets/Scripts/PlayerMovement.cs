@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("collectable_gun"))
         {
             Destroy(collision.gameObject);
-            if (guns.Length > gunIndex) {
+            if (gunIndex < guns.Length) { // Ensure gunIndex is within bounds
                 Gun newGun = Instantiate(gunPrefab, gunPositions[gunIndex].position, gunPositions[gunIndex].rotation);
                 newGun.transform.SetParent(transform); 
                 guns[gunIndex] = newGun; 
