@@ -68,18 +68,26 @@ public class Shark : Enemy
 
     private void RotateToFaceMovement(Vector3 velocity)
     {
-        if (velocity.x > 0) // Moving right
+        if (velocity.sqrMagnitude > 0.01f) // Ensure the shark is moving
         {
-            spriteRenderer.flipX = true; // Flip the sprite horizontally
-            chomper.transform.position = rightChompPoint.position; 
-        }
-        else if (velocity.x < 0) // Moving left
-        {
-            spriteRenderer.flipX = false; // Reset the sprite to default orientation
-            chomper.transform.position = leftChompPoint.position;
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg + 180f; // Add 180 degrees to face the correct direction
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                Quaternion.Euler(0, 0, angle), // Rotate to face the movement direction
+                Time.deltaTime * 5f // Smooth rotation speed
+            );
+
+            // Flip the sprite if the angle is between 90 and 270 degrees
+            if (angle > 90f && angle < 270f || angle < -90f && angle > -270f)
+            {
+                spriteRenderer.flipY = true; // Flip the sprite vertically
+            }
+            else
+            {
+                spriteRenderer.flipY = false; // Reset the sprite flip
+            }
         }
     }
-
     // private void OnTriggerEnter2D(Collider2D collision)
     // {
     //     if (collision.gameObject.CompareTag("Player"))
